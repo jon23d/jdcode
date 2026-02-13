@@ -55,7 +55,7 @@ This will create Docker images tagged as `jdcode-python` and `jdcode-ts`.
      ```
    - For TypeScript:
      ```bash
-     docker run -it -v "$PWD":/code -p 8080:8080 jdcode-python
+     docker run -it -v "$PWD":/code -p 8080:8080 jdcode-ts
      ```
 
 3. **Access the VSCode instance**:
