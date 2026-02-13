@@ -63,7 +63,13 @@ COPY base/opencode.json /root/.config/opencode/opencode.json
 COPY base/.tmux.conf /root/.tmux.conf
 RUN mkdir -p /root/.config/tmuxinator
 COPY base/tmuxinator/dev.yml /root/.config/tmuxinator/dev.yml
-COPY base/welcome.txt /usr/local/share/welcome.txt
+
+# Copy VERSION file and version check scripts
+COPY VERSION /usr/local/share/VERSION
+COPY base/check-version.sh /usr/local/bin/check-version.sh
+RUN chmod +x /usr/local/bin/check-version.sh
+COPY base/show-welcome.sh /usr/local/bin/show-welcome.sh
+RUN chmod +x /usr/local/bin/show-welcome.sh
 
 # Copy shared settings
 RUN mkdir -p /root/.local/share/code-server/User
