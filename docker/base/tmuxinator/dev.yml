@@ -1,0 +1,11 @@
+# /Users/jonathon/.config/tmuxinator/dev.yml
+name: dev
+root: ~/
+
+windows:
+  - dev:
+      root: /code
+      layout: even-vertical
+      panes:
+        - opencode
+        -

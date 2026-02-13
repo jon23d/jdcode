@@ -1,0 +1,16 @@
+{
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "files.autoSave": "onFocusChange",
+  "workbench.colorTheme": "Default Dark+",
+  "extensions.autoUpdate": true
+,
+  "gitlens.gutter.showBlame": true,
+  "editor.quickSuggestions": {
+    "other": true,
+    "comments": true,
+    "strings": true
+,
+  "jest.jestCommandLine": "npm test --"
+}
+}
