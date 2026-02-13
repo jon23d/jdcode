@@ -64,6 +64,7 @@ COPY base/opencode.json /root/.config/opencode/opencode.json
 COPY base/.tmux.conf /root/.tmux.conf
 RUN mkdir -p /root/.config/tmuxinator
 COPY base/tmuxinator/dev.yml /root/.config/tmuxinator/dev.yml
+COPY base/welcome.txt /usr/local/share/welcome.txt
 
 # Copy shared settings
 RUN mkdir -p /root/.local/share/code-server/User

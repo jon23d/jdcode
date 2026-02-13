@@ -1,0 +1,23 @@
+╔══════════════════════════════════════════════════════════════╗
+║                    Welcome to JDCode                         ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+║  Mouse mode is ENABLED - click to switch panes & scroll      ║
+║                                                              ║
+║  Navigation:                                                 ║
+║    • Switch panes: Ctrl+b + arrow keys OR click with mouse   ║
+║    • Resize panes: Ctrl+b + hold Ctrl + arrow keys           ║
+║                    OR drag pane borders with mouse           ║
+║                                                              ║
+║  OpenCode (top pane):                                        ║
+║    • AI-powered coding assistant                             ║
+║    • Type commands or ask questions                          ║
+║    • Ctrl+p to list available actions                        ║
+║                                                              ║
+║  Access:                                                     ║
+║    • VS Code web UI: http://localhost:8080                   ║
+║                                                              ║
+║  Resources:                                                  ║
+║    • Tmux cheat sheet: https://tmuxcheatsheet.com            ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝
