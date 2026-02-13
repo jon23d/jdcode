@@ -1,6 +1,9 @@
 # Automatically bump patch version on merge to main
 name: Version Bump
 
+permissions:
+  contents: write
+  
 on:
   push:
     branches:
