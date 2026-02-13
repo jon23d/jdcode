@@ -26,17 +26,7 @@ if ! grep -q "HTTP server listening" /var/log/code-server.log; then
 fi
 
 # Clear screen and show welcome message
-clear
-echo "═══════════════════════════════════════════════════════"
-echo "  Welcome to opencode Development Environment"
-echo "═══════════════════════════════════════════════════════"
-echo ""
-echo "  ✅ VS Code is running at: http://localhost:${PORT}"
-echo ""
-echo "  Run \`opencode\` to start an AI coding session"
-echo ""
-echo "═══════════════════════════════════════════════════════"
-echo ""
+echo "loading session..."
 
-# Drop to bash prompt
+# Open tmuxinator
 exec tmuxinator dev

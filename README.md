@@ -66,6 +66,34 @@ This will create Docker images tagged as `jdcode-python` and `jdcode-ts`.
 
 ---
 
+## 🔗 Creating Aliases for Convenience
+
+To avoid typing long docker commands, you can create shell aliases:
+
+### Bash/Zsh
+
+Add these lines to your `~/.bashrc` or `~/.zshrc`:
+
+```bash
+alias jdcode-python='docker run -it --rm -v "$PWD":/code -p 8080:8080 jdcode-python'
+alias jdcode-ts='docker run -it --rm -v "$PWD":/code -p 8080:8080 jdcode-ts'
+```
+
+Then reload your shell configuration:
+```bash
+source ~/.bashrc  # or source ~/.zshrc
+```
+
+### Usage
+
+After setting up the aliases, you can simply run:
+```bash
+jdcode-python   # Start Python development environment
+jdcode-ts       # Start TypeScript development environment
+```
+
+---
+
 ## ⚙️ Notes for Testing Play Buttons with Vitest (for the TypeScript Variant)
 
 The `ms-vscode.vscode-jest` extension can be made to work with Vitest:
