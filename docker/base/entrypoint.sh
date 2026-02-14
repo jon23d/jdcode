@@ -4,7 +4,7 @@ set -e
 # Create log directory
 mkdir -p /var/log
 
-code-server --port "${PORT}" --auth none --bind-addr "0.0.0.0:${PORT}" /code > /var/log/code-server.log 2>&1 &
+code-server --port 8080 --auth none --bind-addr "0.0.0.0:8080" /code > /var/log/code-server.log 2>&1 &
 
 # Give code-server a moment to start
 sleep 3

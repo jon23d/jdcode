@@ -1,0 +1,148 @@
+#!/bin/bash
+
+set -e
+
+# Default values
+VARIANT=""
+PORT="8080"
+# TELEGRAM_ENABLED can be set via env var (TELEGRAM_ENABLED=1|true|yes) or via --telegram flag.
+# Initialize from environment if present, otherwise default to false.
+if [ -n "${TELEGRAM_ENABLED:-}" ]; then
+    case "$(echo "${TELEGRAM_ENABLED}" | tr '[:upper:]' '[:lower:]')" in
+        1|true|yes|on) TELEGRAM_ENABLED=true ;;
+        *) TELEGRAM_ENABLED=false ;;
+    esac
+else
+    TELEGRAM_ENABLED=false
+fi
+ENV_FILE=""
+COMMAND="run"
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        python|ts)
+            VARIANT="$1"
+            shift
+            ;;
+        -p|--port)
+            PORT="$2"
+            shift 2
+            ;;
+        --telegram)
+            TELEGRAM_ENABLED=true
+            shift
+            ;;
+        --env-file)
+            ENV_FILE="$2"
+            shift 2
+            ;;
+        --help|-h)
+            echo "jdcode - Simplified interface for jdcode containers"
+            echo ""
+            echo "Usage:"
+            echo "  jdcode [python|ts] [options]"
+            echo ""
+            echo "Options:"
+            echo "  python|ts          Run Python or TypeScript variant"
+            echo "  -p, --port PORT    Port to expose (default: 8080)"
+            echo "  --telegram         Enable Telegram notifications"
+            echo "  --env-file FILE    Use environment file"
+            echo "  --help, -h         Show this help message"
+            echo ""
+            echo "Examples:"
+            echo "  jdcode python           # Run Python variant with default settings"
+            echo "  jdcode ts --port 9000   # Run TypeScript variant on port 9000"
+            echo "  jdcode python --telegram # Run Python with Telegram notifications"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
+
+# Auto-detect variant if not specified
+if [ -z "$VARIANT" ]; then
+    if [ -f "package.json" ] || [ -f "tsconfig.json" ]; then
+        VARIANT="ts"
+    elif [ -f "requirements.txt" ] || [ -f "pyproject.toml" ]; then
+        VARIANT="python"
+    else
+        echo "Error: Could not detect variant. Please specify 'python' or 'ts'"
+        exit 1
+    fi
+fi
+
+# Validate variant
+if [ "$VARIANT" != "python" ] && [ "$VARIANT" != "ts" ]; then
+    echo "Error: Invalid variant. Must be 'python' or 'ts'"
+    exit 1
+fi
+
+# Build the docker command
+DOCKER_CMD="docker run -it --rm"
+
+# Determine the system time zone (try multiple methods for portability)
+# Prefer a named timezone (e.g. America/Los_Angeles). Fall back to abbreviation if necessary.
+if command -v timedatectl >/dev/null 2>&1; then
+    TIMEZONE=$(timedatectl show -p TimeZone --value 2>/dev/null || true)
+elif [ -f /etc/timezone ]; then
+    TIMEZONE=$(cat /etc/timezone 2>/dev/null || true)
+elif [ -L /etc/localtime ]; then
+    # try to extract zoneinfo path from symlink
+    LINK=$(readlink /etc/localtime 2>/dev/null || true)
+    if [ -n "$LINK" ]; then
+        TIMEZONE=$(echo "$LINK" | sed 's|.*/zoneinfo/||')
+    elif command -v realpath >/dev/null 2>&1; then
+        TIMEZONE=$(realpath /etc/localtime 2>/dev/null | sed 's|.*/zoneinfo/||' || true)
+    else
+        TIMEZONE=""
+    fi
+else
+    TIMEZONE=""
+fi
+
+# Fallback: use timezone abbreviation if we couldn't find a named timezone
+if [ -z "$TIMEZONE" ]; then
+    TIMEZONE=$(date +%Z 2>/dev/null || true)
+fi
+
+# Only add TZ env var if we found something
+if [ -n "$TIMEZONE" ]; then
+    DOCKER_CMD="$DOCKER_CMD -e TZ=\"$TIMEZONE\""
+fi
+
+# Add volume mounts
+DOCKER_CMD="$DOCKER_CMD -v \"\$PWD\":/code"
+
+# Add port mapping
+DOCKER_CMD="$DOCKER_CMD -p $PORT:8080"
+
+# Add environment file if specified
+if [ -n "$ENV_FILE" ] && [ -f "$ENV_FILE" ]; then
+    DOCKER_CMD="$DOCKER_CMD --env-file $ENV_FILE"
+fi
+
+# Add Telegram environment variables if enabled
+if [ "$TELEGRAM_ENABLED" = true ]; then
+    # Check if required environment variables exist
+    if [ -z "$TELEGRAM_BOT_TOKEN" ] || [ -z "$TELEGRAM_CHAT_ID" ]; then
+        echo "Error: TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID must be set in environment"
+        echo "You can set them with:"
+        echo "  export TELEGRAM_BOT_TOKEN=your_token"
+        echo "  export TELEGRAM_CHAT_ID=your_chat_id"
+        exit 1
+    fi
+    DOCKER_CMD="$DOCKER_CMD -e TELEGRAM_ENABLED=true"
+    DOCKER_CMD="$DOCKER_CMD -e TELEGRAM_BOT_TOKEN=\"$TELEGRAM_BOT_TOKEN\""
+    DOCKER_CMD="$DOCKER_CMD -e TELEGRAM_CHAT_ID=\"$TELEGRAM_CHAT_ID\""
+fi
+
+# Add image name
+DOCKER_CMD="$DOCKER_CMD jdcode-$VARIANT"
+
+# Execute the command
+echo "Running: $DOCKER_CMD"
+eval $DOCKER_CMD

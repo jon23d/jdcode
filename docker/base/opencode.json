@@ -8,8 +8,8 @@
         "baseURL": "http://host.docker.internal:11434/v1"
       },
       "models": {
-	      "jcoder2": {
-          "name": "jcoder2:latest"
+	      "jdcoder2": {
+          "name": "jdcoder2:latest"
         },
         "qwen3-coder": {
           "name": "qwen3-coder"
