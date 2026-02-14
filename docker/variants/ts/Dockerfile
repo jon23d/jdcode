@@ -18,6 +18,7 @@ RUN apt-get update && \
         software-properties-common \
         tmux \
         tmuxinator \
+        tzdata \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
@@ -52,6 +53,11 @@ RUN OPENCODE_INSTALL_DIR=/usr/local/bin \
 # ─────────────────────────────────────────────
 RUN mkdir -p /root/.config/opencode
 COPY base/opencode.json /root/.config/opencode/opencode.json
+
+# Copy opencode plugins to correct location
+# Plugins must be in ~/.config/opencode/plugins/ (not .opencode subdirectory)
+COPY base/.opencode/plugins /root/.config/opencode/plugins
+COPY base/.opencode/package.json /root/.config/opencode/package.json
 
 
 

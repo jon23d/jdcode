@@ -1,0 +1,9 @@
+{
+  "name": "@opencode/docker-base-plugins",
+  "version": "1.0.0",
+  "description": "Plugin dependencies for OpenCode Docker base image",
+  "dependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

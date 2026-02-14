@@ -8,17 +8,17 @@ This file provides guidance for agentic coding agents operating in this reposito
 
 ```bash
 # Build main image
-docker build -t jdcode-dev .
+docker build -t jdcode-python .
 
 # Build specific variant
 ./build.sh python   # Python development variant
 ./build.sh ts       # TypeScript development variant
 
-# Run container
-docker run -it --rm -v "$PWD":/code -p 8080:8080 jdcode-dev
+# Run container (Python variant)
+docker run -it --rm -v "$PWD":/code -p 8080:8080 jdcode-python
 
 # With password authentication
-docker run -it --rm -v "$PWD":/code -p 8080:8080 -e PASSWORD=secret jdcode-dev
+docker run -it --rm -v "$PWD":/code -p 8080:8080 -e PASSWORD=secret jdcode-python
 
 # View logs
 docker logs <container-id>
