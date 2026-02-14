@@ -45,9 +45,28 @@ This will create Docker images tagged as `jdcode-python` and `jdcode-ts`.
 
 ## 🌍 How to Use the Docker Containers
 
+### Quick Start with Simplified Interface
+
+We've created a simplified CLI tool to make running containers much easier:
+
+1. Install jdcode CLI (run once):
+   ```bash
+   ./install-jdcode.sh
+   ```
+
+2. Run containers with minimal commands:
+   ```bash
+   jdcode python     # Run Python variant
+   jdcode ts         # Run TypeScript variant
+   ```
+
+### Manual Docker Commands (Legacy)
+
+If you prefer to run docker commands directly:
+
 > Note: Binding ports in docker uses the -p flag in the form HOST_PORT:CONTAINER_PORT
 
-### Basic Usage
+#### Basic Usage
 
 1. **Run the containers**:
    Start each environment by binding the appropriate port:
@@ -68,7 +87,7 @@ This will create Docker images tagged as `jdcode-python` and `jdcode-ts`.
 3. **Access OpenCode**
    - In your container, execute `opencode`
 
-### With Telegram Notifications
+#### With Telegram Notifications
 
 Both variants include a Telegram notification plugin that sends messages via a Telegram bot when OpenCode session events occur (idle, errors, completion).
 
@@ -158,6 +177,25 @@ jdcode-ts       # Start TypeScript development environment
 # With Telegram notifications (requires Telegram env vars)
 jdcode-python-notify   # Python with Telegram notifications
 jdcode-ts-notify       # TypeScript with Telegram notifications
+```
+
+### Advanced Usage with CLI Tool
+
+If you've installed the jdcode CLI tool, you can also run:
+
+```bash
+# Basic usage
+jdcode python      # Run Python variant
+jdcode ts          # Run TypeScript variant
+
+# With custom port
+jdcode python --port 9000
+
+# With Telegram notifications
+jdcode python --telegram
+
+# Using environment file
+jdcode ts --env-file .env
 ```
 
 ---

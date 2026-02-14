@@ -27,6 +27,9 @@ RUN apt-get update && \
 COPY base/entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
+# Set timezone to match host system
+RUN ln -sf /etc/localtime /usr/local/etc/localtime
+
 # ─────────────────────────────────────────────
 # Python-specific dependencies
 # ─────────────────────────────────────────────
