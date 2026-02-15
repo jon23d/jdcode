@@ -86,6 +86,10 @@ RUN mkdir -p /root/.local/share/code-server/User
 COPY base/settings.json /root/.local/share/code-server/User/settings.json
 COPY base/keybindings.json /root/.local/share/code-server/User/keybindings.json
 
+# Copy git prompt configuration
+COPY base/git-prompt.sh /etc/profile.d/git-prompt.sh
+RUN chmod +x /etc/profile.d/git-prompt.sh
+
 # Copy TypeScript-specific VSCode extensions
 COPY variants/ts/extensions.json /root/.vscode/extensions.json
 
