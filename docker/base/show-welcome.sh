@@ -42,6 +42,19 @@ EOF
 
 echo "$VERSION_LINE"
 
+# Check Telegram status and display in welcome
+if [ "${TELEGRAM_ENABLED}" = "true" ]; then
+    TELEGRAM_STATUS="ENABLED"
+    TELEGRAM_ICON="🔔"
+else
+    TELEGRAM_STATUS="DISABLED"
+    TELEGRAM_ICON="📵"
+fi
+
+# Add Telegram status to welcome message
+TELEGRAM_LINE=$(python3 -c "print(f'║  ${TELEGRAM_ICON} Telegram notifications: ${TELEGRAM_STATUS:<8}                         ║')")
+echo "$TELEGRAM_LINE"
+
 cat << 'EOF'
 ║                                                              ║
 ║  Mouse mode is ENABLED - click to switch panes & scroll      ║
