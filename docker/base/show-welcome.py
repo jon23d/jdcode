@@ -97,7 +97,12 @@ def create_welcome_message():
     content.append("  • Type commands or ask questions\n", style="white")
     content.append("  • ", style="white")
     content.append("Ctrl+p", style="cyan")
-    content.append(" to list available actions\n\n", style="white")
+    content.append(" to list available actions\n", style="white")
+    content.append("  • Copying to clipboard: ", style="white")
+    content.append(
+        "Option or fn + drag to select text, command-c to copy\n\n",
+        style="yellow"
+    )
 
     # Access section
     content.append("Access:\n", style="bold yellow")
