@@ -34,8 +34,9 @@ RUN ln -sf /etc/localtime /usr/local/etc/localtime
 # TypeScript-specific dependencies
 # ─────────────────────────────────────────────
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y --no-install-recommends nodejs && \
+    apt-get install -y --no-install-recommends nodejs python3 python3-pip && \
     npm install -g typescript && \
+    pip3 install --break-system-packages rich && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
@@ -78,8 +79,8 @@ COPY base/tmuxinator/dev.yml /root/.config/tmuxinator/dev.yml
 COPY VERSION /usr/local/share/VERSION
 COPY base/check-version.sh /usr/local/bin/check-version.sh
 RUN chmod +x /usr/local/bin/check-version.sh
-COPY base/show-welcome.sh /usr/local/bin/show-welcome.sh
-RUN chmod +x /usr/local/bin/show-welcome.sh
+COPY base/show-welcome.py /usr/local/bin/show-welcome.py
+RUN chmod +x /usr/local/bin/show-welcome.py
 
 # Copy shared settings
 RUN mkdir -p /root/.local/share/code-server/User

@@ -140,6 +140,9 @@ if [ "$TELEGRAM_ENABLED" = true ]; then
     DOCKER_CMD="$DOCKER_CMD -e TELEGRAM_CHAT_ID=\"$TELEGRAM_CHAT_ID\""
 fi
 
+# Add the port for the welcome script
+DOCKER_CMD="$DOCKER_CMD -e PORT=$PORT"
+
 # Add image name
 DOCKER_CMD="$DOCKER_CMD jdcode-$VARIANT"
 

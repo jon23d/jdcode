@@ -8,4 +8,4 @@ windows:
       layout: even-vertical
       panes:
         - opencode
-        - clear && /usr/local/bin/show-welcome.sh && bash
+        - clear && /usr/local/bin/show-welcome.py && bash

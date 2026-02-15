@@ -8,7 +8,10 @@
         "baseURL": "http://host.docker.internal:11434/v1"
       },
       "models": {
-	      "jdcoder2": {
+        "deepseek-r1-70b": {
+          "id": "deepseek-r1:70b"
+        },
+	    "jdcoder2": {
           "name": "jdcoder2:latest"
         },
         "qwen3-coder": {
