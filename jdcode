@@ -81,8 +81,8 @@ if [ "$VARIANT" != "python" ] && [ "$VARIANT" != "ts" ]; then
     exit 1
 fi
 
-# Build the docker command
-DOCKER_CMD="docker run -it --rm"
+# Build the podman command
+PODMAN_CMD="podman run -it --rm"
 
 # Determine the system time zone (try multiple methods for portability)
 # Prefer a named timezone (e.g. America/Los_Angeles). Fall back to abbreviation if necessary.
@@ -111,18 +111,18 @@ fi
 
 # Only add TZ env var if we found something
 if [ -n "$TIMEZONE" ]; then
-    DOCKER_CMD="$DOCKER_CMD -e TZ=\"$TIMEZONE\""
+    PODMAN_CMD="$PODMAN_CMD -e TZ=\"$TIMEZONE\""
 fi
 
 # Add volume mounts
-DOCKER_CMD="$DOCKER_CMD -v \"\$PWD\":/code"
+PODMAN_CMD="$PODMAN_CMD -v \"\$PWD\":/code"
 
 # Add port mapping
-DOCKER_CMD="$DOCKER_CMD -p $PORT:8080"
+PODMAN_CMD="$PODMAN_CMD -p $PORT:8080"
 
 # Add environment file if specified
 if [ -n "$ENV_FILE" ] && [ -f "$ENV_FILE" ]; then
-    DOCKER_CMD="$DOCKER_CMD --env-file $ENV_FILE"
+    PODMAN_CMD="$PODMAN_CMD --env-file $ENV_FILE"
 fi
 
 # Add Telegram environment variables if enabled
@@ -135,17 +135,17 @@ if [ "$TELEGRAM_ENABLED" = true ]; then
         echo "  export TELEGRAM_CHAT_ID=your_chat_id"
         exit 1
     fi
-    DOCKER_CMD="$DOCKER_CMD -e TELEGRAM_ENABLED=true"
-    DOCKER_CMD="$DOCKER_CMD -e TELEGRAM_BOT_TOKEN=\"$TELEGRAM_BOT_TOKEN\""
-    DOCKER_CMD="$DOCKER_CMD -e TELEGRAM_CHAT_ID=\"$TELEGRAM_CHAT_ID\""
+    PODMAN_CMD="$PODMAN_CMD -e TELEGRAM_ENABLED=true"
+    PODMAN_CMD="$PODMAN_CMD -e TELEGRAM_BOT_TOKEN=\"$TELEGRAM_BOT_TOKEN\""
+    PODMAN_CMD="$PODMAN_CMD -e TELEGRAM_CHAT_ID=\"$TELEGRAM_CHAT_ID\""
 fi
 
 # Add the port for the welcome script
-DOCKER_CMD="$DOCKER_CMD -e PORT=$PORT"
+PODMAN_CMD="$PODMAN_CMD -e PORT=$PORT"
 
 # Add image name
-DOCKER_CMD="$DOCKER_CMD jdcode-$VARIANT"
+PODMAN_CMD="$PODMAN_CMD jdcode-$VARIANT"
 
 # Execute the command
-echo "Running: $DOCKER_CMD"
-eval $DOCKER_CMD
+echo "Running: $PODMAN_CMD"
+eval $PODMAN_CMD

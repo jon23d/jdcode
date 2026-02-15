@@ -4,27 +4,27 @@ This file provides guidance for agentic coding agents operating in this reposito
 
 ## Build Commands
 
-### Docker
+### Podman
 
 ```bash
 # Build main image
-docker build -t jdcode-python .
+podman build -t jdcode-python .
 
 # Build specific variant
 ./build.sh python   # Python development variant
 ./build.sh ts       # TypeScript development variant
 
 # Run container (Python variant)
-docker run -it --rm -v "$PWD":/code -p 8080:8080 jdcode-python
+podman run -it --rm -v "$PWD":/code -p 8080:8080 jdcode-python
 
 # With password authentication
-docker run -it --rm -v "$PWD":/code -p 8080:8080 -e PASSWORD=secret jdcode-python
+podman run -it --rm -v "$PWD":/code -p 8080:8080 -e PASSWORD=secret jdcode-python
 
 # View logs
-docker logs <container-id>
+podman logs <container-id>
 
 # Shell access
-docker exec -it <container-id> bash
+podman exec -it <container-id> bash
 ```
 
 ### Testing (TypeScript variant)
@@ -83,7 +83,7 @@ main "$@"
 ### Naming
 
 - Scripts: lowercase with hyphens (e.g., `check-host.sh`)
-- Functions: lowercase with underscores (e.g., `check_docker_running`)
+- Functions: lowercase with underscores (e.g., `check_podman_running`)
 - Constants: UPPERCASE (e.g., `DEFAULT_PORT=8080`)
 
 ### Error Handling
