@@ -82,7 +82,7 @@ if [ "$VARIANT" != "python" ] && [ "$VARIANT" != "ts" ]; then
 fi
 
 # Build the docker command
-DOCKER_CMD="docker run -it --rm"
+DOCKER_CMD="podman run -it --rm"
 
 # Determine the system time zone (try multiple methods for portability)
 # Prefer a named timezone (e.g. America/Los_Angeles). Fall back to abbreviation if necessary.

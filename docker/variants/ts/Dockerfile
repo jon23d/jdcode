@@ -33,7 +33,7 @@ RUN ln -sf /etc/localtime /usr/local/etc/localtime
 # ─────────────────────────────────────────────
 # TypeScript-specific dependencies
 # ─────────────────────────────────────────────
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y --no-install-recommends nodejs python3 python3-pip && \
     npm install -g typescript && \
     pip3 install --break-system-packages rich && \

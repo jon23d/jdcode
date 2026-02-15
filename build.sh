@@ -19,4 +19,4 @@ if [ ! -f "$DOCKERFILE" ]; then
 fi
 
 # Build with docker directory as context so variants can access base files
-docker build -f "$DOCKERFILE" -t jdcode-$VARIANT ./docker
+podman build -f "$DOCKERFILE" -t jdcode-$VARIANT ./docker
