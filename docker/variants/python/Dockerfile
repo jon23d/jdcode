@@ -99,6 +99,9 @@ COPY base/keybindings.json /root/.local/share/code-server/User/keybindings.json
 COPY base/git-prompt.sh /etc/profile.d/git-prompt.sh
 RUN chmod +x /etc/profile.d/git-prompt.sh
 
+# Copy .bashrc so non-login shells (tmux panes, code-server terminals) source the git prompt
+COPY base/.bashrc /root/.bashrc
+
 # Copy Python-specific VSCode extensions
 COPY variants/python/extensions.json /root/.vscode/extensions.json
 
