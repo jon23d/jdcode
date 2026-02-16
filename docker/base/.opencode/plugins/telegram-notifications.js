@@ -3,7 +3,7 @@
  * 
  * Sends Telegram messages via the Bot API when OpenCode session events occur.
  * Only activates when all required Telegram environment variables are set.
- * Uses the built-in fetch() API (Node 18+) — no npm dependencies required.
+ * Uses the built-in fetch() API (Node 20+) — no npm dependencies required.
  * 
  * Required Environment Variables:
  * - TELEGRAM_ENABLED=true (to activate the plugin)

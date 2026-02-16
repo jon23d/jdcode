@@ -116,4 +116,5 @@ EXPOSE 8080
 # ─────────────────────────────────────────────
 WORKDIR /code
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/usr/local/bin/entrypoint.sh"]
+

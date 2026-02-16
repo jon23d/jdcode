@@ -63,5 +63,11 @@ fi
 # Clear screen and show welcome message
 echo "loading session..."
 
-# Open tmuxinator
-exec tmuxinator dev
+# Open tmuxinator (don't use exec so we can drop to shell after)
+tmuxinator dev
+
+# When tmux exits, drop to shell
+echo ""
+echo "Tmux session ended. You are now in a shell inside the container."
+echo "Type 'exit' to stop the container, or continue working."
+exec /bin/bash
