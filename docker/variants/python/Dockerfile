@@ -50,17 +50,6 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     rm -rf /var/lib/apt/lists/*
 
 # ─────────────────────────────────────────────
-# Install opencode
-#   The official install script places the binary
-#   in $HOME/.opencode/bin by default.
-#   We override OPENCODE_INSTALL_DIR so the binary
-#   lands in /usr/local/bin and is on PATH for all
-#   users without any extra configuration.
-# ─────────────────────────────────────────────
-RUN OPENCODE_INSTALL_DIR=/usr/local/bin \
-    curl -fsSL https://opencode.ai/install | bash
-
-# ─────────────────────────────────────────────
 # opencode global config
 #   opencode resolves config from
 #   ~/.config/opencode/opencode.json
@@ -109,6 +98,11 @@ COPY variants/python/extensions.json /root/.vscode/extensions.json
 RUN code-server --install-extension ms-python.python && \
     code-server --install-extension njpwerner.autodocstring && \
     code-server --install-extension kevinrose.vsc-python-indent
+
+# ─────────────────────────────────────────────
+# Install opencode
+# ─────────────────────────────────────────────
+RUN curl -fsSL https://opencode.ai/install | bash
 
 # ─────────────────────────────────────────────
 # Environment for code-server
