@@ -20,6 +20,7 @@ RUN apt-get update && \
         tmux \
         tmuxinator \
         tzdata \
+        vim \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
