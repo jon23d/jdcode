@@ -30,12 +30,7 @@ There are custom configurations for specific development environments, such as T
 
 To build the Docker images for each variant, use the `build.sh` script.
 
-1. Navigate to the `docker` directory:
-   ```bash
-   cd docker
-   ```
-
-2. Build a specific variant. For example:
+1. Build a specific variant. For example:
    ```bash
    ./build.sh python
    ./build.sh ts
