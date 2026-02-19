@@ -95,7 +95,7 @@ RUN code-server --install-extension esbenp.prettier-vscode && \
 # ─────────────────────────────────────────────
 # Install opencode
 # ─────────────────────────────────────────────
-RUN curl -fsSL https://opencode.ai/install | bash
+RUN curl -fsSL https://opencode.ai/install | bash -s -- --version 1.2.4
 
 # ─────────────────────────────────────────────
 # Environment for code-server
