@@ -220,3 +220,9 @@ The `ms-vscode.vscode-jest` extension can be made to work with Vitest:
    ```
 
 For more details, refer to the official [Vitest Documentation](https://vitest.dev/).
+
+---
+
+## License
+
+Released into the public domain under the [Unlicense](LICENSE).
